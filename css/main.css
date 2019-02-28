@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis:800');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.div-nav{
+    margin: 0px;
+    padding: 0px;
+}
+
+.nav{
+    padding: 8px 30px;
+    box-shadow: 0 0 10px black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav h1{
+    color: rgb(187, 77, 187);
+    font-family: 'Dosis', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(134, 225, 235, 0.81);
+}
+
+.search{
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.262);
+    padding: 2px 15px;
+    font-size: 0.7rem;
+    width: 250px;
+}
+
+.search:focus, .main-form input:focus{
+    outline: none;
+}
+
+.search::placeholder, .main-form input::placeholder{
+    color: rgba(0, 0, 0, 0.363);
+}
+
+.div-nav::after{
+    margin: 0px;
+    padding: 0px;
+    content: "";
+    display: block;
+    height: 2.5px;
+    background: linear-gradient(to right, rgba(128, 0, 128, 0.468), rgba(143, 143, 250, 0.667),rgba(134, 225, 235, 0.81) );
+}
+
+/* - Navigation bar complete */
+
+.div-main{
+    margin: 0px 0px;
+    height: 90vh;
+    background: rgba(255, 255, 255, 0.29);
+    padding-top: 100px;
+}
+
+.div-form{
+    width: 50%;
+    margin: auto;
+    background: rgba(189, 189, 189, 0.187);
+    box-shadow: 0 0 50px rgba(47, 25, 69, 0.851);
+    border: 1px solid rgba(0, 0, 0, 0.262);
+    border-radius: 10px;
+    padding: 50px 0px;
+}
+
+.main-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-form h6{
+    font-family: 'Indie Flower', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.main-form input{
+    width: 350px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.262);
+    font-size: 1.0rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.235);
+}
+
+#submit{
+    width: 60px;
+    color: white;
+    background: rgb(143, 143, 250);
+    border: 0px;
+}
+
+#submit:hover{
+    background: rgb(129, 129, 235);
+}
