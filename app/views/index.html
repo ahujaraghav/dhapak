@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Dhapak Url Shortner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+   
+</head>
+
+<body>
+    <div class="body-div">
+
+        <div class="div-nav">
+            <nav class="nav">
+                <h1>DHAPAK</h1>
+                <input class="search" placeholder=" &#128270; Search for Tags">
+            </nav>
+        </div>
+        <!-- - *****div-nav ends***** -->
+
+        <div class="div-main">
+            <div class="div-form">
+                <form id="form" class="main-form">
+                    <h6>Shorten Up</h6>
+                    <input type="text" id="url" placeholder="Url to shorten"></input>
+                    <input type="text" id="description" placeholder="Single line description for your website"></input>
+                    <input type="text" id="tags" placeholder="Tags"></input>
+                    <p class="tooltip" role="tootltip" id="bubble-tags"></p>
+                    <input type="submit" id="submit" value="GO">
+                </form>
+            </div>
+            <!-- - *****div-form ends***** -->
+        </div>
+        <!-- - ******div-main ends********* -->
+
+    </div>
+    <!-- - ****body-div ends******** -->
+</body>
+
+<script>
+    const tagHandle = document.getElementById('tags')
+    const urlHandle = document.getElementById('url')
+    const descriptionHandle = document.getElementById('description')
+    const formHandle = document.getElementById('form')
+    const bubbleHandle = document.getElementById('bubble-tags')
+
+    tagHandle.addEventListener('keyup', function (event) {
+        if (event.code == "Space" || event.code == "Comma") {
+            const tag = tagHandle.value
+            const span = document.createElement('span')
+            event.code == "Comma" ? span.textContent = '#' + tag.slice(0,tag.length-1):span.textContent = '#' + tag
+            span.classList.add('bubble-up')
+            span.setAttribute('data-toggle', 'tooltip')
+            span.setAttribute('data-original-title','Double tap to remove')
+            span.addEventListener('dblclick', removeTag)
+            bubbleHandle.appendChild(span)
+            tagHandle.value = ''
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
+            })
+        }
+    })
+
+   
+
+    function removeTag(event) {
+        event.target.remove()
+    }
+
+</script>
+
+</html>

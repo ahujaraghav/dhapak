@@ -92,6 +92,26 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.235);
 }
 
+#tags{
+    width: 20%;
+}
+
+#bubble-tags{
+    width: 60%;
+}
+
+.bubble-up{
+    display: inline-block;
+    color: rgb(129, 142, 238);
+    font-size: 0.8rem;
+    padding: 8px;
+    margin: 5px;
+    background: rgba(216, 117, 249, 0.139);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
 #submit{
     width: 60px;
     color: white;
