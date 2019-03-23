@@ -1,16 +1,6 @@
-const express = require('express')
-const app = express()
-const port = 3000
-app.use(express.json())
-const {mongoose} = require('../config/database')
-const {Bookmark} = require('./models/Bookmark')
-const {bookmarkRouter} = require('./controllers/BookmarkController')
-const {rootRouter} = require('../app/controllers/RootController')
-
-app.use('/bookmarks', bookmarkRouter)
-app.use('/', rootRouter)
+const {app} = require('./app')
 
 
-app.listen(port, function(){
-    console.log("Server on ", port)
+app.listen(3000, function(){
+    console.log("Hollah! Listening on ", 3000)
 })

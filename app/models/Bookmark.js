@@ -29,7 +29,8 @@ const bookmarkSchema = new Schema({
     createdAt:{
         type: Date,
         default: new Date
-    }
+    },
+    click:[{ip:String, browser:String, device:String, os:String }]
 })
 
 bookmarkSchema.pre('validate', function(next){
