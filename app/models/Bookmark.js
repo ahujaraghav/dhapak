@@ -3,39 +3,41 @@ const validator = require('validator')
 const shorthash = require('shorthash')
 const Schema = mongoose.Schema
 const bookmarkSchema = new Schema({
-    title:{
-        required: true,
+    title: {
+        required: [true, "Title is required"],
         type: String
     },
-    orignalUrl:{
-        required: true,
+    orignalUrl: {
+        required: [true,"URL is required"],
         type: String,
-        validate:{
-            validator: function(value){
+        validate: {
+            validator: function (value) {
                 return validator.isURL(value)
             },
-            message: function(){
-                return "invalid url, please enter a valid url"
+            message: function () {
+                return "Invalid URL"
             }
         }
     },
-    hashUrl:{
+    hashUrl: {
         type: String,
-        required: true
+        required: [true, "Original URL error - hash cannot be generated"]
     },
-    tags:{
+    tags: {
         type: [String]
     },
-    createdAt:{
+    createdAt: {
         type: Date,
         default: new Date
     },
-    click:[{ip:String, browser:String, device:String, os:String }]
+    click: [{ ip: String, browser: String, device: String, os: String }]
 })
 
-bookmarkSchema.pre('validate', function(next){
+bookmarkSchema.pre('validate', function (next) {
     const bookmark = this
-    this.hashUrl = shorthash.unique(this.orignalUrl)
+    if (this.orignalUrl) {
+        this.hashUrl = shorthash.unique(this.orignalUrl)
+    }
     next()
 })
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test nodemon --exec 'mocha -recursive'"
   },
   "repository": {
     "type": "git",
@@ -20,9 +20,11 @@
   "dependencies": {
     "express": "^4.16.4",
     "express-useragent": "^1.0.12",
+    "mocha": "^6.0.2",
     "mongoose": "^5.4.16",
     "morgan": "^1.9.1",
     "shorthash": "0.0.2",
+    "supertest": "^4.0.2",
     "validator": "^10.11.0"
   }
 }

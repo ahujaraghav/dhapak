@@ -30,10 +30,7 @@ app.use(function(req, res, next){
 
 // - Error listener - 4 params
 app.use(function(err, req, res, next){
-    const error = err.message.split(' ')
-    const status = error[0]
-    const message = error[1]
-    res.status(status).send(message)
+    res.status(res.locals.status).send(res.locals.message)
 })
 
 module.exports = {
