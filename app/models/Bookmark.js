@@ -30,6 +30,11 @@ const bookmarkSchema = new Schema({
         type: Date,
         default: new Date
     },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
+    },
     click: [{ ip: String, browser: String, device: String, os: String }]
 })
 

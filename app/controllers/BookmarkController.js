@@ -1,14 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const { Bookmark } = require('../models/Bookmark')
+const {authenticateUserMw} = require('../middlewares/authenticateUserMw')
 
 const allowedProperties = [
     "title", "orignalUrl", "tags"
 ]
 
-//  This route is being tested
-router.get('/', function (req, res) {
-    Bookmark.find()
+//  This route is being tested -- not for changes
+// authentication set
+router.get('/', authenticateUserMw, function (req, res) {
+    const user = req.user
+    Bookmark.find({user})
         .then(function (bookmarks) {
             res.send(bookmarks)
         })
@@ -17,11 +20,11 @@ router.get('/', function (req, res) {
         })
 })
 
-
-
-//  This route is being tested
-router.get('/:id', function (req, res, next) {
-    Bookmark.findById(req.params.id)
+//  This route is being tested -- not for changes
+//  authentication set
+router.get('/:id', authenticateUserMw, function (req, res, next) {
+    const user = req.user
+    Bookmark.findOne({_id:req.params.id, user})
         .then(function (bookmark) {
             if (!bookmark) {
                 return Promise.reject()
@@ -41,8 +44,11 @@ router.get('/:id', function (req, res, next) {
 * title, orignalUrl are compulsary field's.
 * this route is being tested 
 */
-router.post('/', function (req, res, next) {
+// authentication set
+router.post('/', authenticateUserMw, function (req, res, next) {
     const body = req.body
+    const user = req.user
+    body.user = user
     const bookmark = new Bookmark(body)
     bookmark.save()
         .then(function (bookmark) {
@@ -64,8 +70,10 @@ router.post('/', function (req, res, next) {
  *  only properties mentioned in allowedProperties array can be altered
  *  this route is being tested
  * */ 
-router.put('/:id', function (req, res, next) {
+// authentication set
+router.put('/:id', authenticateUserMw, function (req, res, next) {
     const body = req.body
+    const user = req.user
     const update = {}
 
     allowedProperties.forEach((property)=>{
@@ -74,7 +82,7 @@ router.put('/:id', function (req, res, next) {
         }
     })
 
-    Bookmark.findByIdAndUpdate(req.params.id, { $set: update }, { new: true, runValidators: true })
+    Bookmark.findOneAndUpdate({_id:req.params.id, user}, { $set: update }, { new: true, runValidators: true })
         .then(function (bookmark) {
             if(!bookmark){
                 return Promise.reject()
@@ -89,9 +97,11 @@ router.put('/:id', function (req, res, next) {
         })
 })
 
-router.delete('/:id', function (req, res) {
+//authentication set
+router.delete('/:id',authenticateUserMw, function (req, res) {
     const body = req.body
-    Bookmark.findByIdAndDelete(req.params.id)
+    const user = req.user
+    Bookmark.findOneAndDelete({_id:req.params.id, user})
         .then(function (bookmark) {
             res.send(bookmark)
         })
@@ -99,6 +109,7 @@ router.delete('/:id', function (req, res) {
             res.send(err)
         })
 })
+
 
 router.get('/tags', function (req, res) {
     const tags = req.query.names.split(',')

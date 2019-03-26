@@ -6,6 +6,7 @@ const {mongoose} = require('../config/database')
 
 const {bookmarkRouter} = require('./controllers/BookmarkController')
 const {rootRouter} = require('../app/controllers/RootController')
+const {userRouter} = require('../app/controllers/UserController')
 
 
 // - Setup to log every request
@@ -20,6 +21,8 @@ app.use(morgan('combined',{stream:accessLogStream}))
 // ! Second middleware for /bookmarks
 app.use('/bookmarks', bookmarkRouter)
 
+app.use('/users', userRouter)
+
 // ! Third middleware for all other routes
 app.use('/', rootRouter)
 
@@ -30,6 +33,10 @@ app.use(function(req, res, next){
 
 // - Error listener - 4 params
 app.use(function(err, req, res, next){
+    if(!res.locals.status || !res.locals.message){
+        res.status(500).send("Internal server error")
+        console.log(err)
+    }
     res.status(res.locals.status).send(res.locals.message)
 })
 

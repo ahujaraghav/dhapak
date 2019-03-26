@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/ahujaraghav/dhapak#readme",
   "dependencies": {
+    "bcrypt": "^3.0.5",
     "express": "^4.16.4",
     "express-useragent": "^1.0.12",
+    "jsonwebtoken": "^8.5.1",
     "mocha": "^6.0.2",
     "mongoose": "^5.4.16",
     "morgan": "^1.9.1",
