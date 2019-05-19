@@ -3,6 +3,7 @@ const router = express.Router()
 const { Bookmark } = require('../models/Bookmark')
 const {authenticateUserMw} = require('../middlewares/authenticateUserMw')
 
+// strong parameters 
 const allowedProperties = [
     "title", "orignalUrl", "tags"
 ]
@@ -47,9 +48,9 @@ router.get('/:id', authenticateUserMw, function (req, res, next) {
 // authentication set
 router.post('/', authenticateUserMw, function (req, res, next) {
     const body = req.body
-    const user = req.user
-    body.user = user
+    // const user = req.user
     const bookmark = new Bookmark(body)
+    bookmark.user = req.user._id
     bookmark.save()
         .then(function (bookmark) {
             res.send(bookmark)

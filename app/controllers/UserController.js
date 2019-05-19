@@ -1,6 +1,7 @@
 const {User} = require('../models/User')
 const express = require('express')
 const validator = require('validator')
+const _ = require('lodash')
 const router = express.Router()
 const {loginUserMw} = require('../middlewares/loginUserMw')
 
@@ -11,7 +12,7 @@ const {loginUserMw} = require('../middlewares/loginUserMw')
  * Upon first user.save(), generating the hashed password from plain password in model.
  */
 router.post('/', (req, res, next)=>{
-    const body = req.body
+    const body = _.pick(req.body, ['username', 'email', 'password'])
     const user = new User(body)
     user.save()
     .then(()=>{
